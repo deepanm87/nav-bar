@@ -5,23 +5,30 @@ const navAbout = document.getElementById('nav-about')
 const navSkills = document.getElementById('nav-skills')
 const navProjects = document.getElementById('nav-projects')
 const navContact = document.getElementById('nav-contact')
+const navItems = [navHome, navAbout, navSkills, navProjects, navContact]
+
+function navAnimation(directionOne, directionTwo) {
+    navItems.forEach( (navItem, i) => {
+        navItem.classList.replace(`slide-${directionOne}-${i + 1}`, `slide-${directionTwo}-${i + 1}`)
+    })
+
+}
 
 function toggleNav() {
     menuBars.classList.toggle('change')
     overlay.classList.toggle('overlay-active')
     if(overlay.classList.contains('overlay-active')) {
-        overlay.classList.remove('overlay-slide-left');
-        overlay.classList.add('overlay-slide-right');
+        overlay.classList.replace('overlay-slide-left', 'overlay-slide-right')
+        navAnimation('out', 'in')
+        
     } else {
-        overlay.classList.remove('overlay-slide-right');
-        overlay.classList.add('overlay-slide-left');
+        overlay.classList.replace('overlay-slide-right', 'overlay-slide-left')
+        navAnimation('in', 'out')
     }
 }
 
 menuBars.addEventListener('click', toggleNav)
-navHome.addEventListener('click', toggleNav)
-navAbout.addEventListener('click', toggleNav)
-navSkills.addEventListener('click', toggleNav)
-navProjects.addEventListener('click', toggleNav)
-navContact.addEventListener('click', toggleNav)
+navItems.forEach(navItem => {
+    navItem.addEventListener('click', toggleNav)
+})
 
